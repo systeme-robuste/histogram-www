@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Histogram — Là où l'attention se mesure, l'auteur se libère. Plateforme souveraine tout-en-un : publication payante, messagerie chiffrée, anti-piratage 8 couches, identité ZK, paiements multi-rail. 5% commission, T+7, 95% à l'auteur, opt-in IA strict.">
+<meta name="description" content="Histogram — Plateforme souveraine en co-construction : publication payante, messagerie chiffrée, anti-piratage 8 couches, identité ZK, paiements multi-rail. 5% commission, T+7, 95% à l'auteur, opt-in IA strict. Le produit n'est pas encore lancé : nous cherchons 1 000 co-créateurs pour le façonner.">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0a0a0a">
 <meta name="referrer" content="no-referrer">
@@ -77,6 +77,21 @@ section:first-of-type{border-top:0}
   border:1px solid var(--gold);text-transform:uppercase;letter-spacing:.05em;font-size:.9rem}
 .hero-cta:hover{background:var(--gold-bright);box-shadow:var(--shadow-gold);
   text-decoration:none;transform:translateY(-1px)}
+.hero-sub strong{color:var(--gold-bright);font-weight:600}
+
+.mission-honest{background:var(--bg-elev);border-left:3px solid var(--gold);
+  padding:1rem 1.3rem;margin-top:1.5rem;border-radius:0 var(--radius) var(--radius) 0;
+  font-size:.95rem;color:var(--fg);line-height:1.55}
+
+/* Section Transparence */
+.transparency{background:var(--bg-alt);border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);padding:3rem 0}
+.status-list{margin:1.5rem 0 0;display:grid;gap:1rem}
+.status-item{background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:1.2rem 1.4rem;margin:0}
+.status-item dt{font-size:1rem;font-weight:700;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem}
+.status-item dd{margin:0;font-size:.92rem;color:var(--fg-muted);line-height:1.5}
 
 /* Early Access form */
 .early-access{max-width:520px;margin:3rem auto 0;padding:1.5rem 1.8rem;
@@ -276,6 +291,7 @@ section:first-of-type{border-top:0}
       <a href="#architecture">Architecture</a>
       <a href="#anti-ia">Anti-IA</a>
       <a href="#investisseurs">Investisseurs</a>
+      <a href="#transparence">Transparence</a>
       <a href="#contact">Contact</a>
       <a href="#en" class="lang-switch" hreflang="en" aria-label="Switch to English">EN</a>
       <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Basculer le mode clair/sombre">☀</button>
@@ -287,18 +303,18 @@ section:first-of-type{border-top:0}
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="container">
       <h1 id="hero-title" class="hero-tagline">Là où l'attention se mesure, l'auteur se libère.</h1>
-      <p class="hero-sub">La première plateforme tout-en-un qui fusionne Substack, Telegram Premium, Adobe Content ID et Stripe Connect — avec 5&nbsp;% de commission, T+7, 95&nbsp;% à l'auteur, et opt-in IA strict.</p>
+      <p class="hero-sub">Nous co-construisons une plateforme souveraine tout-en-un : publication payante, messagerie chiffrée E2E, anti-piratage à 8 couches, identité ZK et paiements multi-rail. <strong>5&nbsp;% de commission, T+7, 95&nbsp;% à l'auteur, opt-in IA strict.</strong> Le produit n'existe pas encore — nous cherchons 1&nbsp;000 auteurs pour le façonner avec nous.</p>
       <a href="#mission" class="hero-cta">Découvrir la mission</a>
       
       <form class="early-access" id="earlyAccess" action="https://formspree.io/f/xpwdqkdl" method="POST" aria-labelledby="early-access-title">
-        <h3 id="early-access-title" class="early-access-title">🎟️ Rejoindre la bêta privée</h3>
-        <p class="early-access-sub">1000 auteurs seront invités en décembre 2026. Soyez parmi les premiers.</p>
+        <h3 id="early-access-title" class="early-access-title">🤝 Devenir co-créateur de la bêta</h3>
+        <p class="early-access-sub">Pas une liste d'attente passive : vous rejoignez un groupe de 1&nbsp;000 auteurs qui testeront, critiqueront et influenceront chaque décision produit. Premier prototype en décembre 2026.</p>
         <div class="early-access-row">
           <label for="ea-email" class="visually-hidden">Adresse e-mail</label>
           <input type="email" name="email" id="ea-email" placeholder="votre@email.com" required autocomplete="email" aria-required="true">
-          <button type="submit" class="early-access-btn">Je m'inscris</button>
+          <button type="submit" class="early-access-btn">Je rejoins la co-construction</button>
         </div>
-        <p class="early-access-fine">Aucun spam. Désabonnement en 1 clic. Vos données restent en Europe.</p>
+        <p class="early-access-fine">Aucun spam. Accès Discord privé des la validation. Vos données restent en Europe (RGPD strict). Vous pouvez partir quand vous voulez.</p>
         <p class="early-access-status" id="eaStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -307,7 +323,8 @@ section:first-of-type{border-top:0}
   <section id="mission" aria-labelledby="mission-title">
     <div class="container">
       <h2 id="mission-title">Mission</h2>
-      <p>Histogram est une plateforme souveraine qui réunit publication payante, messagerie chiffrée E2E, anti-piratage à 8 couches, identité ZK et paiements multi-rail en un seul produit. Notre raison d'être&nbsp;: rendre aux auteurs le contrôle total sur leur audience, leurs œuvres et leurs revenus — à l'ère où l'intelligence artificielle menace leur métier.</p>
+      <p>Histogram est une plateforme souveraine qui réunira publication payante, messagerie chiffrée E2E, anti-piratage à 8 couches, identité ZK et paiements multi-rail en un seul produit. Notre raison d'être&nbsp;: rendre aux auteurs le contrôle total sur leur audience, leurs œuvres et leurs revenus — à l'ère où l'intelligence artificielle menace leur métier.</p>
+      <p class="mission-honest"><strong>Où en sommes-nous aujourd'hui ?</strong> La stratégie, l'architecture et la licence sont écrites (30 documents, 8 400 lignes, validés juridiquement). Le code, lui, n'est pas encore écrit. Nous cherchons 1 000 co-créateurs (auteurs, journalistes, podcasteurs, chercheurs) pour tester la première version alpha en décembre 2026, et un CTO senior pour diriger la construction.</p>
     </div>
   </section>
 
@@ -504,25 +521,62 @@ section:first-of-type{border-top:0}
           <span class="date">Q3 2026</span>
         </div>
         <div class="milestone current" role="listitem">
-          <h4>M0+ — Early Access <span class="badge">EN COURS</span></h4>
-          <p>Collecte de 1 000 auteurs candidats à la bêta privée. Lancement décembre 2026.</p>
+          <h4>M0+ — Co-construction <span class="badge">EN COURS</span></h4>
+          <p>Recrutement de 1 000 co-créateurs (auteurs, journalistes, podcasteurs) + CTO senior + cabinet juridique. 30 documents validés, 0 ligne de code. Le produit n'est pas encore construit.</p>
           <span class="date">Q3 2026</span>
         </div>
-        <div class="milestone current" role="listitem">
-          <h4>M1 — Prototype</h4>
-          <p>HUB + WAVE en alpha privée. 100 auteurs pilotes, 5&nbsp;000 abonnés, 50&nbsp;000&nbsp;€ versés. Recrutement CTO senior Rust+Go+Next.js.</p>
-          <span class="date">Q4 2026</span>
+        <div class="milestone" role="listitem">
+          <h4>M1 — Alpha privée (100 co-créateurs)</h4>
+          <p>HUB + WAVE fonctionnels, bugs assumés. Itérations hebdomadaires avec les co-créateurs. Produit gratuit pour les alpha-testeurs. Aucun revenu attendu.</p>
+          <span class="date">Q4 2026 – Q1 2027</span>
         </div>
         <div class="milestone" role="listitem">
-          <h4>M2 — Beta</h4>
-          <p>SHIELD activé (4 couches sur 8). ATLAS identité ZK. 1&nbsp;000 auteurs, 50&nbsp;000 abonnés, 500&nbsp;000&nbsp;€ versés.</p>
-          <span class="date">Q2 2027</span>
+          <h4>M2 — Bêta ouverte (1 000 auteurs)</h4>
+          <p>SHIELD activé (4 couches sur 8). ATLAS identité ZK. Premiers revenus d'auteur à 5 % commission. Le produit reste <em>instable par design</em>.</p>
+          <span class="date">Q2 – Q3 2027</span>
         </div>
         <div class="milestone" role="listitem">
           <h4>M3 — Lancement public</h4>
-          <p>Plateforme complète ouverte. SHIELD 8/8. 10&nbsp;000 auteurs, 500&nbsp;000 abonnés, 5&nbsp;M&nbsp;€ versés.</p>
+          <p>Plateforme complète, SHIELD 8/8, paiements multi-rail opérationnels. Ouverture à tous. C'est ici — et seulement ici — que Histogram sera réellement « utilisable par tous ».</p>
           <span class="date">Q4 2027</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="transparence" aria-labelledby="transparence-title" class="transparency">
+    <div class="container">
+      <h2 id="transparence-title">Transparence — l'état réel du projet</h2>
+      <p>Parce qu'un auteur qui s'engage mérite la vérité, voici où nous en sommes <strong>vraiment</strong> à la date d'aujourd'hui&nbsp;:</p>
+      <dl class="status-list">
+        <div class="status-item">
+          <dt>✅ Ce qui est fait</dt>
+          <dd>30 documents stratégiques (architecture, licence HPL-1.0, roadmap, plan juridique). Site vitrine. Recrutement en cours de 1 000 co-créateurs. Recherche CTO senior active.</dd>
+        </div>
+        <div class="status-item">
+          <dt>🛠️ Ce qui est en construction</dt>
+          <dd>Le prototype M1 (HUB + WAVE). Estimation : 4-5 mois de développement, livrable décembre 2026 si CTO recruté avant fin août 2026.</dd>
+        </div>
+        <div class="status-item">
+          <dt>❌ Ce qui n'existe pas encore</dt>
+          <dd>Aucune ligne de code backend. Aucun utilisateur actif. Aucun revenu. Aucun paiement versé. Le site que vous lisez est une landing — pas le produit.</dd>
+        </div>
+        <div class="status-item">
+          <dt>🤝 Ce que vous pouvez faire maintenant</dt>
+          <dd>Rejoindre les 1 000 co-créateurs (via le formulaire ci-dessus) : vous recevrez les specs techniques, pourrez critiquer les choix produit, et serez invité·e en priorité à l'alpha de décembre 2026.</dd>
+        </div>
+        <div class="status-item">
+          <dt>⚠️ Ce que vous ne pouvez PAS faire</dt>
+          <dd>Publier du contenu sur Histogram. Envoyer des messages. Être payé. Utiliser SHIELD. Le produit n'est pas encore là. Ne vous inscrivez pas si vous cherchez une plateforme <em>déjà fonctionnelle</em>.</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <section aria-labelledby="roadmap-title">
+    <div class="container">
+      <h2 id="roadmap-title">Roadmap (suite)</h2>
+      <div class="roadmap" role="list">
         <div class="milestone" role="listitem">
           <h4>M4 — Scale</h4>
           <p>Internationalisation (UE + Afrique). Mobile apps iOS+Android. 50&nbsp;000 auteurs, 2&nbsp;M d'abonnés, 20&nbsp;M&nbsp;€ versés.</p>
@@ -662,10 +716,10 @@ section:first-of-type{border-top:0}
       body:JSON.stringify({email:em,source:'histogram-www',date:new Date().toISOString()})
     }).then(function(r){
       if(r.ok){
-        st.textContent='✅ Merci ! Vous êtes sur la liste. Réponse sous 7 jours.';
+        st.textContent='✅ Bienvenue parmi les co-créateurs. Vous recevrez un email d\'accès au Discord privé sous 7 jours.';
         f.querySelector('input[type="email"]').value='';
       }else{
-        st.textContent='⚠️ Erreur technique. Réessayez ou écrivez à hello@histogram.app';
+        st.textContent='⚠️ Erreur technique. Réessayez ou écrivez-nous via la section Contact ci-dessous.';
       }
     }).catch(function(){
       st.textContent='⚠️ Connexion impossible. Réessayez plus tard.';
