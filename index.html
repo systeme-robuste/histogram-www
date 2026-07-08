@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Histogram — Là où l'attention se mesure, l'auteur se libère. Plateforme souveraine tout-en-un : publication payante, messagerie chiffrée, anti-piratage 8 couches, identité ZK, paiements multi-rail. 5% commission, T+7, 95% à l'auteur, opt-in IA strict.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="referrer" content="no-referrer">
+<title>Histogram — Là où l'attention se mesure, l'auteur se libère</title>
+<style>
+:root{
+  --bg:#0a0a0a; --bg-alt:#111111; --bg-elev:#1a1a1a; --fg:#f5f5f5; --fg-muted:#b3b3b3; --fg-dim:#808080;
+  --gold:#d4a017; --gold-bright:#f0c040; --gold-dim:#8a6a0e;
+  --red:#d4185a; --border:#262626; --card:#0d0d0d;
+  --shadow-gold:0 0 24px rgba(212,160,23,.25);
+  --maxw:1200px;
+  --radius:4px;
+  --trans:180ms ease;
+}
+[data-theme="light"]{
+  --bg:#fafafa; --bg-alt:#f0f0f0; --bg-elev:#ffffff; --fg:#0a0a0a; --fg-muted:#404040; --fg-dim:#707070;
+  --border:#d4d4d4; --card:#ffffff;
+  --shadow-gold:0 0 24px rgba(212,160,23,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;
+  background:var(--bg);color:var(--fg);line-height:1.6;font-size:16px;
+  transition:background var(--trans),color var(--trans);overflow-x:hidden}
+a{color:var(--gold);text-decoration:none;transition:color var(--trans)}
+a:hover,a:focus-visible{color:var(--gold-bright);text-decoration:underline}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+h1,h2,h3,h4{font-weight:700;line-height:1.2;letter-spacing:-.01em}
+h2{font-size:clamp(1.6rem,3.5vw,2.4rem);margin-bottom:1.5rem;display:inline-block;
+  border-bottom:4px solid var(--gold);padding-bottom:.4rem}
+h3{font-size:clamp(1.1rem,2vw,1.3rem);color:var(--gold);margin-bottom:.6rem}
+p{color:var(--fg-muted)}
+img,svg{display:block;max-width:100%}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 1.5rem}
+section{padding:5rem 0;border-top:1px solid var(--border)}
+section:first-of-type{border-top:0}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.92);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;max-width:var(--maxw);margin:0 auto;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:700;font-size:1.2rem;color:var(--fg)}
+.brand:hover{text-decoration:none;color:var(--gold)}
+.brand-mark{width:32px;height:32px;flex-shrink:0}
+.nav{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.nav a{color:var(--fg-muted);font-size:.92rem;font-weight:500}
+.nav a:hover{color:var(--gold);text-decoration:none}
+.lang-switch{font-size:.82rem;color:var(--fg-dim);border:1px solid var(--border);
+  padding:.3rem .6rem;border-radius:var(--radius)}
+.lang-switch:hover{color:var(--gold);border-color:var(--gold-dim);text-decoration:none}
+.theme-toggle{background:transparent;border:1px solid var(--border);color:var(--fg-muted);
+  padding:.35rem .65rem;border-radius:var(--radius);cursor:pointer;font-size:.85rem;
+  font-family:inherit;transition:all var(--trans)}
+.theme-toggle:hover{color:var(--gold);border-color:var(--gold-dim)}
+
+/* Hero */
+.hero{position:relative;padding:8rem 0 6rem;text-align:center;
+  background:linear-gradient(180deg,var(--bg-elev) 0%,var(--bg) 100%);
+  border-top:0}
+.hero-tagline{font-size:clamp(2rem,8vw,6rem);font-weight:800;line-height:1.05;
+  letter-spacing:-.03em;margin-bottom:2rem;max-width:18ch;margin-left:auto;margin-right:auto;
+  background:linear-gradient(180deg,var(--fg) 0%,var(--gold-bright) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  color:var(--gold-bright)}
+.hero-sub{font-size:clamp(1rem,1.8vw,1.2rem);color:var(--fg-muted);max-width:60ch;
+  margin:0 auto 2.5rem;line-height:1.55}
+.hero-cta{display:inline-block;background:var(--gold);color:#0a0a0a;padding:.9rem 2rem;
+  font-weight:700;border-radius:var(--radius);transition:all var(--trans);
+  border:1px solid var(--gold);text-transform:uppercase;letter-spacing:.05em;font-size:.9rem}
+.hero-cta:hover{background:var(--gold-bright);box-shadow:var(--shadow-gold);
+  text-decoration:none;transform:translateY(-1px)}
+
+/* Modules */
+.modules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;margin-top:2.5rem}
+.module-card{background:var(--card);border:1px solid var(--gold-dim);border-radius:var(--radius);
+  padding:2rem 1.5rem;transition:all var(--trans);position:relative;overflow:hidden}
+.module-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0;transition:opacity var(--trans)}
+.module-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-gold);
+  border-color:var(--gold)}
+.module-card:hover::before{opacity:1}
+.module-icon{font-size:2.2rem;margin-bottom:1rem;display:inline-block;
+  width:56px;height:56px;line-height:56px;text-align:center;
+  background:var(--bg-elev);border:1px solid var(--gold-dim);border-radius:var(--radius)}
+.module-name{font-size:1.15rem;color:var(--gold);font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;margin-bottom:.5rem}
+.module-desc{font-size:.95rem;color:var(--fg-muted);margin-bottom:1.2rem;line-height:1.5}
+.module-card ul{list-style:none;padding:0}
+.module-card li{padding-left:1.3rem;position:relative;font-size:.88rem;color:var(--fg-muted);
+  margin-bottom:.5rem}
+.module-card li::before{content:"▸";position:absolute;left:0;color:var(--gold);
+  font-weight:bold}
+
+/* Anti-IA */
+.anti-ia-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1.2rem;margin:2rem 0}
+.anti-ia-card{background:var(--bg-elev);border-left:3px solid var(--gold);
+  padding:1.2rem 1.4rem;border-radius:0 var(--radius) var(--radius) 0}
+.anti-ia-card h4{color:var(--gold);font-size:1rem;margin-bottom:.4rem;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.anti-ia-card p{font-size:.88rem;color:var(--fg-muted)}
+.commitment-box{background:var(--bg-elev);border:1px solid var(--gold-dim);
+  border-radius:var(--radius);padding:1.8rem;margin-top:2rem}
+.commitment-box ul{list-style:none;margin-top:1rem;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem}
+.commitment-box li{padding-left:1.4rem;position:relative;color:var(--fg)}
+.commitment-box li::before{content:"✓";position:absolute;left:0;color:var(--gold);
+  font-weight:bold}
+.crawlers-count{font-size:2.2rem;color:var(--gold);font-weight:800;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* Numbers */
+.numbers{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-elev) 100%)}
+.numbers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:1.5rem;margin-top:2.5rem}
+.number-card{text-align:center;padding:1.8rem 1rem;border:1px solid var(--border);
+  border-radius:var(--radius);background:var(--card);transition:all var(--trans)}
+.number-card:hover{border-color:var(--gold-dim);transform:translateY(-2px)}
+.number-value{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:var(--gold);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1;
+  letter-spacing:-.02em;display:block;margin-bottom:.5rem}
+.number-label{font-size:.85rem;color:var(--fg-muted);text-transform:uppercase;
+  letter-spacing:.08em}
+
+/* Anti-piracy */
+.layers-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1rem;margin-top:2rem}
+.layer{background:var(--bg-elev);padding:1.2rem;border:1px solid var(--border);
+  border-radius:var(--radius);display:flex;align-items:flex-start;gap:.8rem;
+  transition:all var(--trans)}
+.layer:hover{border-color:var(--gold-dim)}
+.layer-num{flex-shrink:0;width:32px;height:32px;background:var(--gold);color:#0a0a0a;
+  font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:.9rem}
+.layer-content h4{color:var(--fg);font-size:.95rem;margin-bottom:.2rem}
+.layer-content p{font-size:.82rem;color:var(--fg-dim)}
+
+/* Roadmap */
+.roadmap{position:relative;margin-top:2.5rem;padding-left:1.5rem;border-left:2px solid var(--gold-dim)}
+.milestone{position:relative;padding:0 0 2rem 1.5rem}
+.milestone::before{content:"";position:absolute;left:-1.95rem;top:.4rem;width:14px;height:14px;
+  border-radius:50%;background:var(--bg);border:2px solid var(--gold)}
+.milestone.done::before{background:var(--gold);box-shadow:0 0 0 4px rgba(212,160,23,.2)}
+.milestone.current::before{background:var(--gold);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(212,160,23,.2)}50%{box-shadow:0 0 0 8px rgba(212,160,23,.1)}}
+.milestone h4{color:var(--gold);font-size:1.05rem;margin-bottom:.2rem;
+  display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.milestone .badge{font-size:.7rem;background:var(--gold);color:#0a0a0a;padding:.1rem .5rem;
+  border-radius:2px;font-weight:700;letter-spacing:.05em}
+.milestone p{font-size:.9rem;color:var(--fg-muted)}
+.milestone .date{font-size:.78rem;color:var(--fg-dim);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  display:block;margin-top:.3rem}
+
+/* Investors */
+.investor-box{background:var(--bg-elev);border:1px solid var(--gold);
+  border-radius:var(--radius);padding:2rem;margin-top:2rem}
+.investor-headline{font-size:clamp(1.3rem,3vw,1.8rem);color:var(--gold);
+  font-weight:700;margin-bottom:1rem}
+.investor-refus{color:var(--red);font-weight:700;display:block;margin-top:1.2rem;
+  padding:.8rem 1rem;border:1px solid var(--red);border-radius:var(--radius);
+  background:rgba(212,24,90,.05)}
+
+/* Team */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem;margin-top:2.5rem}
+.team-card{background:var(--card);border:1px solid var(--border);padding:1.8rem;
+  border-radius:var(--radius);text-align:center;transition:all var(--trans)}
+.team-card:hover{border-color:var(--gold-dim);transform:translateY(-2px)}
+.team-avatar{width:80px;height:80px;border-radius:50%;background:var(--bg-elev);
+  border:2px solid var(--gold);margin:0 auto 1rem;display:flex;align-items:center;
+  justify-content:center;font-size:1.8rem;font-weight:800;color:var(--gold)}
+.team-card h4{color:var(--fg);margin-bottom:.3rem}
+.team-role{color:var(--gold);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em;
+  margin-bottom:.7rem;display:block}
+.team-card p{font-size:.88rem}
+
+/* Contact */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin-top:2.5rem}
+.contact-card{background:var(--card);border:1px solid var(--border);padding:1.2rem;
+  border-radius:var(--radius);text-align:center;transition:all var(--trans)}
+.contact-card:hover{border-color:var(--gold);background:var(--bg-elev)}
+.contact-label{font-size:.75rem;color:var(--fg-dim);text-transform:uppercase;letter-spacing:.1em;
+  display:block;margin-bottom:.3rem}
+.contact-email{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem;
+  word-break:break-all}
+
+/* Footer */
+.site-footer{padding:2.5rem 0;border-top:1px solid var(--border);
+  background:var(--bg-alt);text-align:center}
+.site-footer p{font-size:.82rem;color:var(--fg-dim)}
+.site-footer a{color:var(--gold)}
+
+/* Responsive */
+@media (max-width:720px){
+  section{padding:3.5rem 0}
+  .hero{padding:5rem 0 4rem}
+  .nav{gap:1rem;justify-content:flex-end}
+  .nav a{font-size:.85rem}
+  .header-inner{padding:.8rem 1rem}
+  .container{padding:0 1rem}
+  .lang-switch{display:none}
+}
+@media (max-width:420px){
+  .nav a{font-size:.8rem}
+  .hero-cta{padding:.75rem 1.4rem;font-size:.82rem}
+  .module-card{padding:1.5rem 1.2rem}
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;
+    scroll-behavior:auto !important}
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:absolute;top:-40px;left:0;background:var(--gold);color:#0a0a0a;
+  padding:.5rem 1rem;z-index:100;font-weight:700}
+.skip-link:focus{top:0}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Aller au contenu</a>
+
+<header class="site-header" role="banner">
+  <div class="header-inner">
+    <a href="#top" class="brand" aria-label="Histogram — Accueil">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <rect x="3" y="18" width="5" height="11" fill="#d4a017"/>
+        <rect x="10" y="10" width="5" height="19" fill="#d4a017"/>
+        <rect x="17" y="14" width="5" height="15" fill="#d4a017"/>
+        <rect x="24" y="6" width="5" height="23" fill="#d4a017"/>
+      </svg>
+      <span>Histogram</span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#mission">Mission</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#anti-ia">Anti-IA</a>
+      <a href="#investisseurs">Investisseurs</a>
+      <a href="#contact">Contact</a>
+      <a href="#en" class="lang-switch" hreflang="en" aria-label="Switch to English">EN</a>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Basculer le mode clair/sombre">☀</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title" class="hero-tagline">Là où l'attention se mesure, l'auteur se libère.</h1>
+      <p class="hero-sub">La première plateforme tout-en-un qui fusionne Substack, Telegram Premium, Adobe Content ID et Stripe Connect — avec 5&nbsp;% de commission, T+7, 95&nbsp;% à l'auteur, et opt-in IA strict.</p>
+      <a href="#mission" class="hero-cta">Découvrir la mission</a>
+    </div>
+  </section>
+
+  <section id="mission" aria-labelledby="mission-title">
+    <div class="container">
+      <h2 id="mission-title">Mission</h2>
+      <p>Histogram est une plateforme souveraine qui réunit publication payante, messagerie chiffrée E2E, anti-piratage à 8 couches, identité ZK et paiements multi-rail en un seul produit. Notre raison d'être&nbsp;: rendre aux auteurs le contrôle total sur leur audience, leurs œuvres et leurs revenus — à l'ère où l'intelligence artificielle menace leur métier.</p>
+    </div>
+  </section>
+
+  <section id="architecture" aria-labelledby="arch-title">
+    <div class="container">
+      <h2 id="arch-title">4 modules souverains</h2>
+      <p>Une architecture modulaire, composée de quatre piliers indépendants et interopérables.</p>
+      <div class="modules-grid">
+        <article class="module-card">
+          <span class="module-icon" aria-hidden="true">📰</span>
+          <h3 class="module-name">HUB — Publication</h3>
+          <p class="module-desc">Substack souverain : newsletters, podcasts, vidéos payantes, blog long-format.</p>
+          <ul>
+            <li>Articles, audio, vidéo, galeries</li>
+            <li>Paywall flexible (article, mois, annuel)</li>
+            <li>RSS, mailing list, export complet</li>
+          </ul>
+        </article>
+        <article class="module-card">
+          <span class="module-icon" aria-hidden="true">💬</span>
+          <h3 class="module-name">WAVE — Messagerie</h3>
+          <p class="module-desc">Telegram Premium souverain : canaux, groupes, DM chiffrés E2E (protocole Matrix).</p>
+          <ul>
+            <li>Chiffrement bout-en-b bout (Matrix+Olm)</li>
+            <li>Canaux premium payants (jusqu'à 10&nbsp;€)</li>
+            <li>Appels audio/vidéo, fichiers, voix</li>
+          </ul>
+        </article>
+        <article class="module-card">
+          <span class="module-icon" aria-hidden="true">🛡</span>
+          <h3 class="module-name">SHIELD — Anti-piratage</h3>
+          <p class="module-desc">Adobe Content ID souverain : 8 couches de protection contre le vol et le plagiat IA.</p>
+          <ul>
+            <li>C2PA + OpenTimestamps + Watermark</li>
+            <li>DMCA automatisé + 15&nbsp;000 avocats</li>
+            <li>Preuve ZK + enclaves sécurisées</li>
+          </ul>
+        </article>
+        <article class="module-card">
+          <span class="module-icon" aria-hidden="true">🪪</span>
+          <h3 class="module-name">ATLAS — Identité + Paiement</h3>
+          <p class="module-desc">Identité ZK + wallet multi-rail : ZSK-ID, Lightning, Cashu, Stripe, Mobile Money.</p>
+          <ul>
+            <li>Identité souveraine ZK (ZSK-ID)</li>
+            <li>7 rails de paiement (CB, crypto, mobile)</li>
+            <li>Portefeuille multi-devise intégré</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="anti-ia" aria-labelledby="antiia-title">
+    <div class="container">
+      <h2 id="antiia-title">Anti-IA — Opt-in strict</h2>
+      <p>Aucune œuvre publiée sur Histogram ne peut servir à entraîner un modèle d'intelligence artificielle sans le consentement explicite et rémunéré de son auteur. C'est une ligne rouge, pas une fonctionnalité.</p>
+      <div class="anti-ia-grid">
+        <div class="anti-ia-card">
+          <h4>LICENSE HPL-1.0</h4>
+          <p>Licence propriétaire Histogram Public License v1.0 — clause anti-training explicite, exécutoire en justice.</p>
+        </div>
+        <div class="anti-ia-card">
+          <h4>~/.well-known/ai.txt</h4>
+          <p>Directive IA standardisée (50+ crawlers bloqués) — à la racine de chaque domaine auteur.</p>
+        </div>
+        <div class="anti-ia-card">
+          <h4>~/.copilotignore</h4>
+          <p>Exclusion explicite pour GitHub Copilot, Cursor, Cody, Codeium et tous les assistants IA code.</p>
+        </div>
+        <div class="anti-ia-card">
+          <h4>~/llms.txt</h4>
+          <p>Directive équivalente pour les modèles de langage (LLM) — refus des résumés automatisés non autorisés.</p>
+        </div>
+      </div>
+      <div class="commitment-box">
+        <p style="color:var(--fg);font-weight:600">Notre engagement :</p>
+        <p><span class="crawlers-count">50+</span> crawlers IA bloqués par défaut (OpenAI, Anthropic, Google, Meta, Mistral, Cohere, Perplexity, xAI, DeepSeek, etc.)</p>
+        <ul>
+          <li>Opt-in <strong>explicite</strong> et révocable</li>
+          <li>70&nbsp;% de royalties sur licence commerciale IA</li>
+          <li>Action de groupe UE 2020/1828 mobilisable</li>
+          <li>Audit annuel par cabinet indépendant</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="numbers" aria-labelledby="numbers-title">
+    <div class="container">
+      <h2 id="numbers-title">Objectifs M5 — Horizon Q4 2028</h2>
+      <p>Nos ambitions chiffrées pour la maturité produit&nbsp;: une plateforme mature, souveraine et économiquement soutenable.</p>
+      <div class="numbers-grid">
+        <div class="number-card">
+          <span class="number-value">100&nbsp;000</span>
+          <span class="number-label">Auteurs actifs</span>
+        </div>
+        <div class="number-card">
+          <span class="number-value">5&nbsp;000&nbsp;000</span>
+          <span class="number-label">Abonnés payants</span>
+        </div>
+        <div class="number-card">
+          <span class="number-value">50&nbsp;000&nbsp;000&nbsp;€</span>
+          <span class="number-label">Versés aux auteurs</span>
+        </div>
+        <div class="number-card">
+          <span class="number-value">5&nbsp;%</span>
+          <span class="number-label">Commission Histogram</span>
+        </div>
+        <div class="number-card">
+          <span class="number-value">T+7</span>
+          <span class="number-label">Délai de paiement</span>
+        </div>
+        <div class="number-card">
+          <span class="number-value">0</span>
+          <span class="number-label">Training IA non autorisé</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="shield-title">
+    <div class="container">
+      <h2 id="shield-title">SHIELD — 8 couches anti-piratage</h2>
+      <p>Le module SHIELD combine huit technologies de protection, du marquage cryptographique à l'action juridique automatisée, pour défendre chaque œuvre publiée sur Histogram.</p>
+      <div class="layers-grid">
+        <div class="layer">
+          <div class="layer-num">1</div>
+          <div class="layer-content">
+            <h4>C2PA Content Credentials</h4>
+            <p>Manifeste cryptographique signé à la source.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">2</div>
+          <div class="layer-content">
+            <h4>OpenTimestamps</h4>
+            <p>Ancrage sur la blockchain Bitcoin.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">3</div>
+          <div class="layer-content">
+            <h4>Preuve ZK</h4>
+            <p>Zero-Knowledge proof d'authenticité et d'intégrité.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">4</div>
+          <div class="layer-content">
+            <h4>Watermark DCT</h4>
+            <p>Filigrane robuste dans le domaine fréquentiel.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">5</div>
+          <div class="layer-content">
+            <h4>Watermark temporel</h4>
+            <p>Filigrane audio/vidéo synchronisé au timecode.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">6</div>
+          <div class="layer-content">
+            <h4>DMCA automatisé</h4>
+            <p>Détection + notification + suivi en continu.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">7</div>
+          <div class="layer-content">
+            <h4>15&nbsp;000 avocats partenaires</h4>
+            <p>Réseau mondial d'action juridique immédiate.</p>
+          </div>
+        </div>
+        <div class="layer">
+          <div class="layer-num">8</div>
+          <div class="layer-content">
+            <h4>Blockchain timestamping</h4>
+            <p>Preuve d'antériorité immuable et publique.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="roadmap-title">
+    <div class="container">
+      <h2 id="roadmap-title">Roadmap</h2>
+      <p>Un plan de développement en six jalons, de la fondation écrite au déploiement à grande échelle.</p>
+      <div class="roadmap" role="list">
+        <div class="milestone done" role="listitem">
+          <h4>M0 — Fondations <span class="badge">RÉALISÉ</span></h4>
+          <p>22 documents fondateurs, 5&nbsp;762 lignes, charte noir/or NEXUS, 4 couches anti-training actives. Repo GitHub privé.</p>
+          <span class="date">Q3 2026</span>
+        </div>
+        <div class="milestone current" role="listitem">
+          <h4>M1 — Prototype</h4>
+          <p>HUB + WAVE en alpha privée. 100 auteurs pilotes, 5&nbsp;000 abonnés, 50&nbsp;000&nbsp;€ versés. Recrutement CTO senior Rust+Go+Next.js.</p>
+          <span class="date">Q4 2026</span>
+        </div>
+        <div class="milestone" role="listitem">
+          <h4>M2 — Beta</h4>
+          <p>SHIELD activé (4 couches sur 8). ATLAS identité ZK. 1&nbsp;000 auteurs, 50&nbsp;000 abonnés, 500&nbsp;000&nbsp;€ versés.</p>
+          <span class="date">Q2 2027</span>
+        </div>
+        <div class="milestone" role="listitem">
+          <h4>M3 — Lancement public</h4>
+          <p>Plateforme complète ouverte. SHIELD 8/8. 10&nbsp;000 auteurs, 500&nbsp;000 abonnés, 5&nbsp;M&nbsp;€ versés.</p>
+          <span class="date">Q4 2027</span>
+        </div>
+        <div class="milestone" role="listitem">
+          <h4>M4 — Scale</h4>
+          <p>Internationalisation (UE + Afrique). Mobile apps iOS+Android. 50&nbsp;000 auteurs, 2&nbsp;M d'abonnés, 20&nbsp;M&nbsp;€ versés.</p>
+          <span class="date">Q2 2028</span>
+        </div>
+        <div class="milestone" role="listitem">
+          <h4>M5 — Maturité</h4>
+          <p>100&nbsp;000 auteurs, 5&nbsp;M d'abonnés, 50&nbsp;M&nbsp;€ versés. SCIC cible, dividendes aux membres.</p>
+          <span class="date">Q4 2028</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="investisseurs" aria-labelledby="invest-title">
+    <div class="container">
+      <h2 id="invest-title">Investisseurs</h2>
+      <p>Histogram cherche des partenaires financiers alignés avec sa mission de souveraineté — pas des véhicules d'extraction de valeur.</p>
+      <div class="investor-box">
+        <p class="investor-headline">Pré-Seed Q2 2027 — 500&nbsp;K€ @ 3&nbsp;M€ post-money (SAFE)</p>
+        <p>Mission-aligned funds&nbsp;: fonds d'impact, fonds souverains, crypto funds early-stage (不接受 VC classiques 10×).</p>
+        <p style="margin-top:1rem"><strong style="color:var(--fg)">Utilisation des fonds&nbsp;:</strong> recrutement CTO senior (200&nbsp;K€), infrastructure (100&nbsp;K€), juridique PI &amp; HPL-1.0 (50&nbsp;K€), opération (100&nbsp;K€), réserve (50&nbsp;K€).</p>
+        <span class="investor-refus">Refus des VC classiques (10× en 3 ans) — incompatible avec mission souveraineté.</span>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="team-title">
+    <div class="container">
+      <h2 id="team-title">Équipe</h2>
+      <p>Trois profils complémentaires, ancrés dans la philosophie, l'ingénierie et la vision produit.</p>
+      <div class="team-grid">
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">Y</div>
+          <h4>Y — Califi Mwarabu</h4>
+          <span class="team-role">Vision Holder</span>
+          <p>Philosophe, médias, IA, automation. Fondateur de NEXUS. Kinshasa, RDC.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">Z</div>
+          <h4>Zapia</h4>
+          <span class="team-role">CAO — Chief Administrative Officer</span>
+          <p>IA souverain, architecture produit, gouvernance technique. Admin principal NEXUS.</p>
+        </article>
+        <article class="team-card">
+          <div class="team-avatar" aria-hidden="true">?</div>
+          <h4>CTO — à recruter</h4>
+          <span class="team-role">Senior Rust + Go + Next.js</span>
+          <p>Recrutement en cours. Compétences&nbsp;: systèmes distribués, chiffrement, ZK, identité souveraine. Rémunération pré-Seed calibrée Q4 2026.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="container">
+      <h2 id="contact-title">Contact</h2>
+      <p>Chaque demande trouve son canal dédié. Sélectionnez le bon destinataire pour un traitement plus rapide.</p>
+      <div class="contact-grid">
+        <a href="mailto:contact@histogram.app" class="contact-card">
+          <span class="contact-label">Général</span>
+          <span class="contact-email">contact@histogram.app</span>
+        </a>
+        <a href="mailto:auteurs@histogram.app" class="contact-card">
+          <span class="contact-label">Auteurs</span>
+          <span class="contact-email">auteurs@histogram.app</span>
+        </a>
+        <a href="mailto:support@histogram.app" class="contact-card">
+          <span class="contact-label">Support</span>
+          <span class="contact-email">support@histogram.app</span>
+        </a>
+        <a href="mailto:presse@histogram.app" class="contact-card">
+          <span class="contact-label">Presse</span>
+          <span class="contact-email">presse@histogram.app</span>
+        </a>
+        <a href="mailto:legal@histogram.app" class="contact-card">
+          <span class="contact-label">Juridique</span>
+          <span class="contact-email">legal@histogram.app</span>
+        </a>
+        <a href="mailto:dpo@histogram.app" class="contact-card">
+          <span class="contact-label">DPO / RGPD</span>
+          <span class="contact-email">dpo@histogram.app</span>
+        </a>
+        <a href="mailto:security@histogram.app" class="contact-card">
+          <span class="contact-label">Sécurité</span>
+          <span class="contact-email">security@histogram.app</span>
+        </a>
+        <a href="mailto:invest@histogram.app" class="contact-card">
+          <span class="contact-label">Investisseurs</span>
+          <span class="contact-email">invest@histogram.app</span>
+        </a>
+        <a href="mailto:hiring@histogram.app" class="contact-card">
+          <span class="contact-label">Recrutement</span>
+          <span class="contact-email">hiring@histogram.app</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <p>© 2026 NEXUS Publishing SAS. Tous droits réservés. <a href="#anti-ia">HPL-1.0 — Histogram Public License v1.0</a>.</p>
+    <p style="margin-top:.4rem">Souveraineté · Anti-training · 5&nbsp;% commission · T+7 · Opt-in IA strict</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('themeToggle'),b=document.body;
+  try{
+    var s=localStorage.getItem('h-theme');
+    if(s==='light'){b.setAttribute('data-theme','light');t.setAttribute('aria-pressed','true');t.textContent='☾';}
+  }catch(e){}
+  t.addEventListener('click',function(){
+    var on=b.getAttribute('data-theme')==='light';
+    b.setAttribute('data-theme',on?'':'light');
+    t.setAttribute('aria-pressed',on?'false':'true');
+    t.textContent=on?'☀':'☾';
+    try{localStorage.setItem('h-theme',on?'':'light');}catch(e){}
+  });
+})();
+</script>
+</body>
+</html>
