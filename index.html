@@ -16,6 +16,7 @@
   --shadow-gold:0 0 24px rgba(212,160,23,.25);
   --maxw:1200px;
   --radius:4px;
+  --radius-lg:8px;
   --trans:180ms ease;
 }
 [data-theme="light"]{
@@ -92,6 +93,32 @@ section:first-of-type{border-top:0}
 .status-item dt{font-size:1rem;font-weight:700;color:var(--gold);
   text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem}
 .status-item dd{margin:0;font-size:.92rem;color:var(--fg-muted);line-height:1.5}
+
+/* Section Vision Holder */
+.vision-section{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 100%);
+  padding:4rem 0}
+.vision-grid{display:grid;grid-template-columns:300px 1fr;gap:3rem;
+  align-items:center;margin-top:2rem}
+.vision-photo{position:relative}
+.vision-photo img{width:100%;height:auto;border-radius:var(--radius-lg);
+  border:2px solid var(--gold);box-shadow:var(--shadow-gold);
+  display:block;object-fit:cover;aspect-ratio:3/4}
+.vision-content h3.vision-name{font-size:1.8rem;margin:0 0 .3rem;
+  color:var(--fg);font-weight:700}
+.vision-role{color:var(--gold);font-size:.95rem;text-transform:uppercase;
+  letter-spacing:.08em;margin:0 0 1.2rem;font-weight:600}
+.vision-bio{font-size:1rem;line-height:1.65;color:var(--fg-muted);
+  margin:0 0 1.5rem}
+.vision-quote{font-size:1.15rem;font-style:italic;color:var(--fg);
+  border-left:3px solid var(--gold);padding:.6rem 0 .6rem 1.2rem;
+  margin:1.2rem 0 .4rem;line-height:1.4}
+.vision-attr{color:var(--fg-dim);font-size:.85rem;margin:0}
+@media(max-width:720px){
+  .vision-grid{grid-template-columns:1fr;gap:1.5rem;text-align:center}
+  .vision-photo{max-width:240px;margin:0 auto}
+  .vision-quote{border-left:none;border-top:2px solid var(--gold);
+    border-bottom:2px solid var(--gold);padding:1rem 0}
+}
 
 /* Early Access form */
 .early-access{max-width:520px;margin:3rem auto 0;padding:1.5rem 1.8rem;
@@ -288,6 +315,7 @@ section:first-of-type{border-top:0}
     </a>
     <nav class="nav" aria-label="Navigation principale">
       <a href="#mission">Mission</a>
+      <a href="#vision">Vision</a>
       <a href="#architecture">Architecture</a>
       <a href="#anti-ia">Anti-IA</a>
       <a href="#investisseurs">Investisseurs</a>
@@ -325,6 +353,24 @@ section:first-of-type{border-top:0}
       <h2 id="mission-title">Mission</h2>
       <p>Histogram est une plateforme souveraine qui réunira publication payante, messagerie chiffrée E2E, anti-piratage à 8 couches, identité ZK et paiements multi-rail en un seul produit. Notre raison d'être&nbsp;: rendre aux auteurs le contrôle total sur leur audience, leurs œuvres et leurs revenus — à l'ère où l'intelligence artificielle menace leur métier.</p>
       <p class="mission-honest"><strong>Où en sommes-nous aujourd'hui ?</strong> La stratégie, l'architecture et la licence sont écrites (30 documents, 8 400 lignes, validés juridiquement). Le code, lui, n'est pas encore écrit. Nous cherchons 1 000 co-créateurs (auteurs, journalistes, podcasteurs, chercheurs) pour tester la première version alpha en décembre 2026, et un CTO senior pour diriger la construction.</p>
+    </div>
+  </section>
+
+  <section id="vision" aria-labelledby="vision-title" class="vision-section">
+    <div class="container">
+      <h2 id="vision-title">Vision Holder</h2>
+      <div class="vision-grid">
+        <div class="vision-photo">
+          <img src="assets/calife-mwarabu.jpg" alt="Portrait de Calife Mwarabu, fondateur et Vision Holder d'Histogram" width="582" height="800" loading="lazy">
+        </div>
+        <div class="vision-content">
+          <h3 class="vision-name">Calife Mwarabu</h3>
+          <p class="vision-role">Vision Holder — Fondateur de NEXUS</p>
+          <p class="vision-bio">Philosophe, médias, IA, automation. Depuis Kinshasa (RDC), Calife porte la vision d'un web où les auteurs — journalistes, podcasteurs, chercheurs, écrivains — reprennent le contrôle total sur leur audience, leurs œuvres et leurs revenus. Histogram est l'instrument technique de cette vision&nbsp;: une infrastructure souveraine, écrite par et pour les créateurs de l'ère post-AI Act.</p>
+          <p class="vision-quote">« Là où l'attention se mesure, l'auteur se libère. »</p>
+          <p class="vision-attr">— Calife Mwarabu, fondateur</p>
+        </div>
+      </div>
     </div>
   </section>
 
